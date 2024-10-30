@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -15,28 +16,32 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { RolesGuard } from 'src/role/roles.guard';
 import { Roles } from 'src/role/role.decorator';
 import { Role } from 'src/role/roles.enum';
+import { ResponseInterceptor } from 'src/general/interceptor/response.interceptor';
 
+@UseInterceptors(ResponseInterceptor)
 @Controller('book')
-@UseGuards(RolesGuard)
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
   @Post('/')
   @Roles(Role.ADMIN)
   create(@Body(ValidationPipe) createBookDto: CreateBookDto) {
-    return this.bookService.create(createBookDto);
+    const data = this.bookService.create(createBookDto);
+    return { data, message: '' };
   }
 
   @Get()
   @Roles(Role.ADMIN, Role.USER)
   findAll() {
-    return this.bookService.findAll();
+    const data = this.bookService.findAll();
+    return { data, message: '' };
   }
 
   @Get(':id')
   @Roles(Role.ADMIN, Role.USER)
   findOne(@Param('id') id: string) {
-    return this.bookService.findOne(+id);
+    const data = this.bookService.findOne(+id);
+    return { data, message: '' };
   }
 
   @Patch(':id')
@@ -45,12 +50,14 @@ export class BookController {
     @Param('id') id: string,
     @Body(ValidationPipe) updateBookDto: UpdateBookDto,
   ) {
-    return this.bookService.update(+id, updateBookDto);
+    const data = this.bookService.update(+id, updateBookDto);
+    return { data, message: '' };
   }
 
   @Delete(':id')
   @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
-    return this.bookService.remove(+id);
+    const data = this.bookService.remove(+id);
+    return { data, message: '' };
   }
 }

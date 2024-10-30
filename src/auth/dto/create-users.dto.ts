@@ -1,4 +1,5 @@
 import {
+  IsEnum,
   IsNumber,
   IsOptional,
   IsString,
@@ -22,5 +23,6 @@ export class CreateUsersDto {
 
   @IsString()
   @IsOptional()
+  @IsEnum(Role)
   roles?: Role;
 }

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BookModule } from './book/book.module';
@@ -6,16 +6,21 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './role/roles.guard';
-import { RolesModule } from './role/role.module';
+import { RequestMiddleware } from './general/middleware/request.middleware';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    BookModule,
-    AuthModule,
-    RolesModule,
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), BookModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestMiddleware).forRoutes('*');
+  }
+}

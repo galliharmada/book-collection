@@ -5,6 +5,10 @@
 
 The Book Collection API is a RESTful service built with [Nest](https://github.com/nestjs/nest) framework. It provides RBAC features, endpoints for managing a collection of books, allowing users to create, read, update, and delete book entries.
 
+## Postman Json
+[Download here](https://github.com/galliharmada/book-collection/blob/main/Book%20Collection.postman_collection.json)
+
+
 ## Features
 
 - Role Based Authentication Control (RBAC)

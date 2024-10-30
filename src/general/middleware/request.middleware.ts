@@ -14,9 +14,14 @@ export class RequestMiddleware implements NestMiddleware {
       const { statusCode } = res;
       const contentLength = res.get('content-length');
 
-      this.logger.log(
-        `${method} ${originalUrl} ${statusCode} ${contentLength} - ${userAgent} ${req.ip}`,
-      );
+      const errorCode = [400, 401, 403, 500];
+      const message = `${method} ${originalUrl} ${statusCode} ${contentLength} - ${userAgent} ${req.ip}`;
+
+      if (errorCode.includes(statusCode)) {
+        this.logger.error(message);
+      } else {
+        this.logger.log(message);
+      }
     });
 
     next();

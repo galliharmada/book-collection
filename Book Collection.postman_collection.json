@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "9fd4e999-2b75-4dc6-b0a8-1106e97054bc",
+		"name": "Book Collection",
+		"description": "This API allows you to manage a collection of books. It provides endpoints for craete, reading, updating, and deleting book entries.\n\n### Role Based Authentication Control (RBAC)\n\n- Admin\n    \n    - Create Book\n        \n    - Update Book\n        \n    - Delete Book\n        \n    - Find All\n        \n    - Find By Id\n        \n- User\n    \n    - Find All\n        \n    - Find By Id\n        \n\n## Endpoints\n\n### Authentication (Users)\n\nRoles : \\[admin, user\\]\n\n- POST /auth/login: Login Users\n    \n- POST /auth/register: Register Users\n    \n\n### Book\n\n- GET /books: List all books\n    \n- GET /books/{id}: Get a specific book by ID\n    \n- POST /books: Add a new book\n    \n- PUT /books/{id}: Update an existing book\n    \n- DELETE /books/{id}: Remove a book from the collection\n    \n\n## Book Object\n\nA book object typically includes:\n\n- id: Unique identifier\n    \n- title: Book title\n    \n- author: Author's name\n    \n- publish-date: Date when the book is publish\n    \n\nUse these endpoints to interact with your book collection database.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4053313"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"email\" : \"gale1@gmail.com\",\n//     \"password\" : \"@Password123\",\n//     \"roles\" :\"user\"\n// }\n\n{\n    \"email\" : \"gale@gmail.com\",\n    \"password\" : \"@Password123\",\n    \"roles\" :\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/register",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"gale@gmail.com\",\n    \"password\" : \"@Password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/login",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tkn}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}book",
+							"host": [
+								"{{url}}book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tkn}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}book/:id",
+							"host": [
+								"{{url}}book"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tkn}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\" : \"Financial Freedom\",\n    \"author\" : \"Gallih\",\n    \"publishedDate\" : \"2024-10-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}book",
+							"host": [
+								"{{url}}book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tkn}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"author\" :\"Armada\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}book/:id",
+							"host": [
+								"{{url}}book"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tkn}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}book/:id",
+							"host": [
+								"{{url}}book"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

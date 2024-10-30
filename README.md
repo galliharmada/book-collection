@@ -1,19 +1,13 @@
-Certainly! Here's the copyable version of the README.md content for your Book Collection API project:
 
-````markdown
+
 # Book Collection API
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-## Description
-
-The Book Collection API is a RESTful service built with [Nest](https://github.com/nestjs/nest) framework. It provides endpoints for managing a collection of books, allowing users to create, read, update, and delete book entries.
+The Book Collection API is a RESTful service built with [Nest](https://github.com/nestjs/nest) framework. It provides RBAC features, endpoints for managing a collection of books, allowing users to create, read, update, and delete book entries.
 
 ## Features
 
-- Role Based Authentication Control
+- Role Based Authentication Control (RBAC)
   - Admin
     - Create Book
     - Update Book
@@ -33,7 +27,6 @@ The Book Collection API is a RESTful service built with [Nest](https://github.co
 ```bash
 $ npm install
 ```
-````
 
 ## Running the app
 
@@ -48,15 +41,15 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## API Endpoints
+# API Endpoints
 
-# Authentication
+## Authentication
 
 - Roles = [admin, user]
 - POST /auth/login: Login Users
 - POST /auth/register: Register Users
 
-# Book
+## Book
 
 - GET /books: Retrieve all books
 - GET /books/{id}: Get a specific book by ID
@@ -64,24 +57,12 @@ $ npm run start:prod
 - PUT /books/{id}: Update an existing book
 - DELETE /books/{id}: Remove a book from the collection
 
-## Book Object
+# Book Object
 
-A book object:
+A book object
 
 - id: Unique identifier
 - title: Book title
 - author: Author's name
 - publish-date: Date when the book was published
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
